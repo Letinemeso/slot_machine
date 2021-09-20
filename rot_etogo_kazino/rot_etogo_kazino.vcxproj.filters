@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\screen_object">
+      <UniqueIdentifier>{88f4cfdd-b2e2-4689-b0ca-152adc877e0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\drum">
+      <UniqueIdentifier>{b2b73d02-df16-4179-ba17-54e7ac83e3cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\slot_machine">
+      <UniqueIdentifier>{8a12a60a-739e-4142-98aa-0e8955300f96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\button">
+      <UniqueIdentifier>{91522b21-bc8a-4fb6-9d02-1f3ae9b7525b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="screen_object.cpp">
+      <Filter>Исходные файлы\screen_object</Filter>
+    </ClCompile>
+    <ClCompile Include="drum.cpp">
+      <Filter>Исходные файлы\drum</Filter>
+    </ClCompile>
+    <ClCompile Include="slot_machine.cpp">
+      <Filter>Исходные файлы\slot_machine</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>Исходные файлы\button</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="screen_object.h">
+      <Filter>Исходные файлы\screen_object</Filter>
+    </ClInclude>
+    <ClInclude Include="log_macro.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="drum.h">
+      <Filter>Исходные файлы\drum</Filter>
+    </ClInclude>
+    <ClInclude Include="slot_machine.h">
+      <Filter>Исходные файлы\slot_machine</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>Исходные файлы\button</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
