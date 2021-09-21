@@ -25,6 +25,9 @@
     <Filter Include="Исходные файлы\button">
       <UniqueIdentifier>{91522b21-bc8a-4fb6-9d02-1f3ae9b7525b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\text_field">
+      <UniqueIdentifier>{53ac2717-efa1-4cd6-89ac-718902421ec9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -42,6 +45,9 @@
     <ClCompile Include="button.cpp">
       <Filter>Исходные файлы\button</Filter>
     </ClCompile>
+    <ClCompile Include="text_field.cpp">
+      <Filter>Исходные файлы\text_field</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="screen_object.h">
@@ -58,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="button.h">
       <Filter>Исходные файлы\button</Filter>
+    </ClInclude>
+    <ClInclude Include="text_field.h">
+      <Filter>Исходные файлы\text_field</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

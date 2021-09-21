@@ -13,19 +13,23 @@ private:
 
 	int center_x, center_y, radius;
 
-	bool pressed = false;
+	bool active = true;
 
 public:
+	button(const button&) = delete;
 	button(
 		SDL_Renderer*& _renderer, 
 		SDL_Event& _event,
 		const char* const* _paths,
-		int _center_x, int _center_y, int _radius
-	) noexcept;
+		int _center_x, int _center_y, int _radius) noexcept;
 	~button() noexcept;
 
-	bool is_pressed(int _x, int _y) noexcept;
+	bool is_pressed() noexcept;
 
+	void activate() noexcept;
+	void deactivate() noexcept;
+
+	void draw() noexcept;
 };
 
 #endif

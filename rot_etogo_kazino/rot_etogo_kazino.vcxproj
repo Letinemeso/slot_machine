@@ -150,10 +150,12 @@
     <ClCompile Include="drum.cpp" />
     <ClCompile Include="slot_machine.cpp" />
     <ClCompile Include="button.cpp" />
+    <ClCompile Include="text_field.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="drum.h" />
     <ClInclude Include="button.h" />
+    <ClInclude Include="text_field.h" />
     <ClInclude Include="slot_machine.h" />
     <ClInclude Include="log_macro.h" />
     <ClInclude Include="screen_object.h" />

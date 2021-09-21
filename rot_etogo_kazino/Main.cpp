@@ -9,9 +9,11 @@
 #include "screen_object.h"
 #include "drum.h"
 #include "slot_machine.h"
+#include "button.h"
+#include "text_field.h"
 
-constexpr int scr_width	 = 800;
-constexpr int scr_height = 600;
+constexpr int scr_width	 = 1360;
+constexpr int scr_height = 780;
 
 constexpr int xx = 20;
 constexpr int yy = 20;
@@ -21,7 +23,7 @@ constexpr int hh = 600 - 20 - yy;
 int main()
 {
 	SDL_Window* window = nullptr;
-	SDL_Surface* surface = nullptr;
+	//SDL_Surface* surface = nullptr;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -38,7 +40,7 @@ int main()
 			return -1;
 		}
 	}
-	surface = SDL_GetWindowSurface(window);
+	//surface = SDL_GetWindowSurface(window);
 
 	//initing sdl_img
 	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
@@ -59,59 +61,74 @@ int main()
 	screen_object background(renderer, "background.bmp", 0, 0, scr_width, scr_height);
 	screen_object line(renderer, "line.png", 0, 0, scr_width, scr_height);
 	
+	text_field tf(renderer, "textures/background.png", "textures/letters/", scr_width / 6 * 5, scr_height / 20 * 19, scr_width / 6, scr_height / 20);
 
-	const char* const paths[4] = {
-		"textures/drum_symbol_cherry.png",
-		"textures/drum_symbol_icecream.png",
-		"textures/drum_symbol_clover.png",
-		"textures/drum_symbol_bass.png"
+	const char* const paths[3] = {
+		"textures/drum_symbols/drum_symbol_cherry.png",
+		"textures/drum_symbols/drum_symbol_icecream.png",
+		"textures/drum_symbols/drum_symbol_clover.png"
 	};
-
-	slot_machine machine(renderer, 1000.0f / 60.0f, 5, paths, 3,
-		100, 50, scr_width - 200, scr_height - 200
-	);
-
-	//drum d(renderer, paths, 3, 0, 0, 200, 600);
-
-	bool need_to_quit = false;
+	const char* const button_paths[2] = {
+		"textures/button/active.png",
+		"textures/button/inactive.png"
+	};
 
 	SDL_Event event;
 
+	slot_machine machine(
+		renderer, 
+		event, 
+		1000.0f / 60.0f, 
+		5, 
+		paths, 
+		3, 
+		button_paths,
+		scr_width / 10, scr_height / 10, scr_width / 10 * 8, scr_height / 10 * 9
+	);
+
+	SDL_Rect viewport = { 0, 0, scr_width, scr_height };
+
+	bool need_to_quit = false;
+
+	std::chrono::time_point<std::chrono::high_resolution_clock> begin;
+	std::chrono::time_point<std::chrono::high_resolution_clock> end;
+
+	float time = 0.0f;
+	int frames = 0;
 	while (need_to_quit == false)
 	{
+		begin = std::chrono::high_resolution_clock::now();
+
 		SDL_PollEvent(&event);
 
 		if (event.type == SDL_QUIT) { need_to_quit = true; }
 
-		if (event.type == SDL_KEYDOWN)
-		{
-			if (event.key.keysym.sym == SDLK_SPACE)
-			{
-				/*if (d.is_rotating() == false)
-				{
-					d.set_rotation_params(2.0f, 1.0f, 1000.0f / 60.0f);
-				}*/
-				machine.spin();
-			}
-		}
-
 		SDL_RenderClear(renderer);
 		
-		//LOG("rttnspd: ", d.is_rotating(), "\n\n");
-		//d.draw();
+		if (time > 1.0f)
+		{
+			tf.clear_text();
+			tf.set_text("fps ");
+			tf.add_num(frames);
 
+			frames = 0;
+			time = 0.0f;
+		}
+		
+		tf.draw();
 		machine.draw();
 
-		//line.draw();
+		SDL_RenderSetViewport(renderer, &viewport);
 
 		SDL_RenderPresent(renderer);
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(1000 / 60));
+		
+		end = std::chrono::high_resolution_clock::now();
+		time += std::chrono::duration_cast<std::chrono::duration<float>>(end - begin).count();
+		++frames;
 	}
 
-	
-
-	SDL_FreeSurface(surface);
 	IMG_Quit();
 	SDL_Quit();
 
