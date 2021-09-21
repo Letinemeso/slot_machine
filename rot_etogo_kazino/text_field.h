@@ -4,10 +4,10 @@
 #include "screen_object.h"
 #include <string>
 
-static bool initialized = false;
+static int instances_count = 0;
 
 constexpr unsigned int sym_count = 36;
-static std::string paths[sym_count];
+static screen_object* symbols[sym_count];
 
 class text_field
 {
@@ -15,7 +15,6 @@ private:
 	SDL_Renderer*& renderer;
 
 	screen_object* background;
-	screen_object* letter;
 	SDL_Rect viewport;
 	
 	std::string text;
@@ -40,7 +39,6 @@ public:
 	void set_text(const char* const _text) noexcept;
 	void add_sym(char _sym) noexcept;
 	void add_num(int _num) noexcept;
-	void add_num(float _num) noexcept;
 	void clear_text() noexcept;
 
 	void draw() noexcept;

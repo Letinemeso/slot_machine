@@ -7,24 +7,30 @@ text_field::text_field(
 	int _x, int _y, int _w, int _h) noexcept
 : renderer(_renderer), x(_x), y(_y), w(_w), h(_h)
 {
-	if (initialized == false)
+	if (instances_count == 0)
 	{
+		std::string path;
+
 		for (int i = 0; i < 10; ++i)
 		{
-			paths[i] += _letters_path;
-			paths[i] += char('0' + i);
-			paths[i] += ".png";
+			path = _letters_path;
+			path += char('0' + i);
+			path += ".png";
+
+			symbols[i] = new screen_object(renderer, path.c_str(), 0, 0, 0, 0);
 		}
 		for (int i = 10; i < sym_count; ++i)
 		{
-			paths[i] += _letters_path;
-			paths[i] += char('a' + i - 10);
-			paths[i] += ".png";
+			path = _letters_path;
+			path += char('a' + i - 10);
+			path += ".png";
+
+			symbols[i] = new screen_object(renderer, path.c_str(), 0, 0, 0, 0);
 		}
-		initialized = true;
 	}
 
-	letter = new screen_object(_renderer);
+	++instances_count;
+
 	background = new screen_object(_renderer, _background_path, _x, _y, _w, _h);
 
 	viewport.x = 0;
@@ -35,8 +41,13 @@ text_field::text_field(
 
 text_field::~text_field() noexcept
 {
+	if (instances_count == 1)
+		for (int i = 0; i < sym_count; ++i)
+			delete symbols[i];
+
+	--instances_count;
+
 	delete background;
-	delete letter;
 }
 
 
@@ -95,11 +106,6 @@ void text_field::add_num(int _num) noexcept
 	text += std::to_string(_num);
 }
 
-void text_field::add_num(float _num) noexcept
-{
-	text += std::to_string(_num);
-}
-
 void text_field::clear_text() noexcept
 {
 	text.clear();
@@ -115,16 +121,14 @@ void text_field::draw() noexcept
 	if (text.size() > 0)
 	{
 		int letter_width = (w / text.size() > 1 ? w / text.size() : 1);
-		letter->set_scale(letter_width, h);
 
 		for (int i = 0; i < text.size(); ++i)
 		{
 			if (text[i] == ' ') continue;
 
-			letter->set_texture(paths[get_index(text[i])].c_str());
-			letter->set_pos(x + letter_width * i, y);
-
-			letter->draw();
+			symbols[get_index(text[i])]->set_scale(letter_width, h);
+			symbols[get_index(text[i])]->set_pos(x + letter_width * i, y);
+			symbols[get_index(text[i])]->draw();
 		}
 	}
 }
