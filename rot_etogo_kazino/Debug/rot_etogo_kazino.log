@@ -1,2 +1,15 @@
 ﻿  Main.cpp
+  drum.cpp
+C:\Users\User\Desktop\rot_etogo_kazino\rot_etogo_kazino\drum.cpp(14,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Desktop\rot_etogo_kazino\rot_etogo_kazino\drum.cpp(20,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Desktop\rot_etogo_kazino\rot_etogo_kazino\drum.cpp(25,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Desktop\rot_etogo_kazino\rot_etogo_kazino\drum.cpp(36,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\User\Desktop\rot_etogo_kazino\rot_etogo_kazino\drum.cpp(129,39): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+C:\Users\User\Desktop\rot_etogo_kazino\rot_etogo_kazino\drum.cpp(140,39): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+C:\Users\User\Desktop\rot_etogo_kazino\rot_etogo_kazino\drum.cpp(156,43): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+C:\Users\User\Desktop\rot_etogo_kazino\rot_etogo_kazino\drum.cpp(163,58): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+C:\Users\User\Desktop\rot_etogo_kazino\rot_etogo_kazino\drum.cpp(165,29): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+C:\Users\User\Desktop\rot_etogo_kazino\rot_etogo_kazino\drum.cpp(166,24): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+C:\Users\User\Desktop\rot_etogo_kazino\rot_etogo_kazino\drum.cpp(187,20): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода...
   rot_etogo_kazino.vcxproj -> C:\Users\User\Desktop\rot_etogo_kazino\Debug\rot_etogo_kazino.exe

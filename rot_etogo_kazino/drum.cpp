@@ -42,7 +42,6 @@ drum::~drum() noexcept
 
 	delete[] draw_order;
 
-	//delete[] viewport;
 	delete[] ys;
 }
 

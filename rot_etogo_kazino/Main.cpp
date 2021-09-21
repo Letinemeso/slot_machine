@@ -7,23 +7,33 @@
 #include <chrono>
 
 #include "screen_object.h"
-#include "drum.h"
 #include "slot_machine.h"
-#include "button.h"
 #include "text_field.h"
 
-constexpr int scr_width	 = 1360;
-constexpr int scr_height = 780;
-
-constexpr int xx = 20;
-constexpr int yy = 20;
-constexpr int ww = 800 - 50 - xx;
-constexpr int hh = 600 - 20 - yy;
+int scr_width;
+int scr_height;
 
 int main()
 {
+	SDL_DisplayMode dm;
+
+	if (SDL_VideoInit(nullptr) != 0)
+	{
+		LOG("error: ", SDL_GetError(), "\n\n");
+		return -1;
+	}
+
+
+	if (SDL_GetDesktopDisplayMode(0, &dm) != 0)
+	{
+		LOG("error: ", SDL_GetError(), "\n\n");
+		return 1;
+	}
+
+	scr_width = dm.w;
+	scr_height = dm.h;
+
 	SDL_Window* window = nullptr;
-	//SDL_Surface* surface = nullptr;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -40,17 +50,16 @@ int main()
 			return -1;
 		}
 	}
-	//surface = SDL_GetWindowSurface(window);
 
-	//initing sdl_img
 	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
 	{
 		LOG("error initializing png: ", IMG_GetError(), "\n\n");
 		return -1;
 	}
 
-
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+	SDL_Event event;
 
 	if (renderer == nullptr)
 	{
@@ -58,10 +67,9 @@ int main()
 		return -1;
 	}
 
-	screen_object background(renderer, "background.bmp", 0, 0, scr_width, scr_height);
-	screen_object line(renderer, "line.png", 0, 0, scr_width, scr_height);
-	
-	text_field tf(renderer, "textures/background.png", "textures/letters/", scr_width / 6 * 5, scr_height / 20 * 19, scr_width / 6, scr_height / 20);
+	screen_object bg(renderer, "textures/background.png", 0, 0, scr_width, scr_height);
+	text_field tf(renderer, "textures/textfield_background.png", "textures/letters/", scr_width / 6 * 5, scr_height / 20 * 19, scr_width / 6, scr_height / 20);
+	tf.set_text("fps   ");
 
 	const char* const paths[3] = {
 		"textures/drum_symbols/drum_symbol_cherry.png",
@@ -72,8 +80,6 @@ int main()
 		"textures/button/active.png",
 		"textures/button/inactive.png"
 	};
-
-	SDL_Event event;
 
 	slot_machine machine(
 		renderer, 
@@ -86,15 +92,12 @@ int main()
 		scr_width / 10, scr_height / 10, scr_width / 10 * 8, scr_height / 10 * 9
 	);
 
-	SDL_Rect viewport = { 0, 0, scr_width, scr_height };
-
-	bool need_to_quit = false;
-
 	std::chrono::time_point<std::chrono::high_resolution_clock> begin;
 	std::chrono::time_point<std::chrono::high_resolution_clock> end;
 
 	float time = 0.0f;
 	int frames = 0;
+	bool need_to_quit = false;
 	while (need_to_quit == false)
 	{
 		begin = std::chrono::high_resolution_clock::now();
@@ -102,6 +105,9 @@ int main()
 		SDL_PollEvent(&event);
 
 		if (event.type == SDL_QUIT) { need_to_quit = true; }
+		if (event.type == SDL_KEYDOWN)
+			if (event.key.keysym.sym == SDLK_ESCAPE)
+				need_to_quit = true;
 
 		SDL_RenderClear(renderer);
 		
@@ -115,10 +121,9 @@ int main()
 			time = 0.0f;
 		}
 		
-		tf.draw();
+		bg.draw();
 		machine.draw();
-
-		SDL_RenderSetViewport(renderer, &viewport);
+		tf.draw();
 
 		SDL_RenderPresent(renderer);
 

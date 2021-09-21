@@ -53,7 +53,7 @@ void slot_machine::slow_down_drums() noexcept
 	{
 		if (drums[i - 1]->is_rotating() == false && drums[i]->is_rotating() == true)
 		{
-			drums[i]->set_rotation_params(drums[i]->get_rotation_speed(), drums[i]->get_rotation_speed(), fps);
+			drums[i]->set_rotation_params(drums[i]->get_rotation_speed(), drums[i]->get_rotation_speed() * 2.0f, fps);
 			++sdd_offset;
 			break;
 		}
@@ -71,7 +71,7 @@ void slot_machine::spin() noexcept
 	unsigned int speed = 0;
 	while (speed < 3)
 		speed = rand() % 10;
-	drums[0]->set_rotation_params((float)speed, (float)speed, fps);
+	drums[0]->set_rotation_params((float)speed, (float)speed * 2.0f, fps);
 
 	for (int i = 1; i < drum_count; ++i)
 	{
